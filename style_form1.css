@@ -2,12 +2,12 @@
 body {
   font-family: Arial, sans-serif;
   margin: 20px;
-  background-color: #f087ec; /* Rouge */
+  background-color: #f087ec; /* Rose fonce */
   color: #fff; /* Blanc */
 }
 
 .container {
-  background-color: #c99cc9; /* Bleu */
+  background-color: #c99cc9; /* rose clair */
   padding: 20px;
   border-radius: 10px;
 }
@@ -34,18 +34,18 @@ input[type="text"], input[type="number"], select {
 }
 
 select {
-  background-color: #cb3eb8; /* Vert */
+  background-color: #cb3eb8; /* rose fonce */
   color: #fff; /* Blanc */
 }
 
 input[type="submit"] {
-  background-color: #6d3ecb; /* Rouge */
+  background-color: #6d3ecb; /* viollet */
   color: #fff; /* Blanc */
   cursor: pointer;
 }
 
 input[type="submit"]:hover {
-  background-color: #6d3ecb; /* Rouge foncé */
+  background-color: #6d3ecb; /* violet */
 }
 
 a {
