@@ -16,6 +16,8 @@
 
 <?php
 
+
+
 // Vérifie si la requête est de type POST
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 

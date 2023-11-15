@@ -11,9 +11,19 @@
     <a href="index.php">Accueil</a><br>
 
     <?php
-    require_once("functions.php");
+    // Configurer l'affichage des erreurs
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
 
-    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    require_once("functions.php");
+   
+
+    // Vérifier si la requête est de type POST et si l'indice "addressCount" est défini
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["addressCount"])) {
+        $addressCount = $_POST["addressCount"];
+
+        // Connexion à la base de données
         $serverName = 'localhost';
         $username = "root";
         $pwd = "";
@@ -21,30 +31,67 @@
 
         $connection = connectToDatabase($serverName, $username, $pwd, $dbName);
 
-        // Sélectionnez les adresses à partir de la base de données
-        $stmtSelect = $connection->prepare("SELECT * FROM address");
-        $stmtSelect->execute();
-        $result = $stmtSelect->get_result();
-
         echo "<div class='container'>";
 
-        // Affiche chaque adresse
-        while ($row = $result->fetch_assoc()) {
+        // Boucle pour afficher chaque adresse saisie
+        for ($i = 1; $i <= $addressCount; $i++) {
             echo "<div class='adresse-result'>";
-            echo "<h2>Adresse</h2>";
-            echo "<p><strong> Street: </strong> " . htmlspecialchars($row['street']) . "</p>";
-            echo "<p><strong> Street_nb: </strong> " . htmlspecialchars($row['street_nb']) . "</p>";
-            echo "<p><strong> Type: </strong> " . htmlspecialchars($row['type']) . "</p>";
-            echo "<p><strong> City: </strong> " . htmlspecialchars($row['city']) . "</p>";
-            echo "<p><strong> Zip Code: </strong> " . htmlspecialchars($row['zipcode']) . "</p>";
-            echo "<br>";
+            echo "<h2>Adresse $i</h2>";
+
+            // Vérifier si les données ont été saisies
+            if (isset($_POST["street_$i"])) {
+                $street = $_POST["street_$i"];
+                $street_nb = $_POST["street_nb_$i"];
+                $type = $_POST["type_$i"];
+                $city = $_POST["city_$i"];
+                $zipcode = $_POST["zipcode_$i"];
+
+                // Afficher les données
+                echo "<p><strong> Street: </strong> " . htmlspecialchars($street) . "</p>";
+                echo "<p><strong> Street_nb: </strong> " . htmlspecialchars($street_nb) . "</p>";
+                echo "<p><strong> Type: </strong> " . htmlspecialchars($type) . "</p>";
+                echo "<p><strong> City: </strong> " . htmlspecialchars($city) . "</p>";
+                echo "<p><strong> Zip Code: </strong> " . htmlspecialchars($zipcode) . "</p>";
+                echo "<br>";
+            }
             echo "</div>";
         }
 
         echo "</div>";
 
-        // Ferme la connexion à la base de données
+        // Fermer la connexion à la base de données
         closeConnection($connection);
+
+        // Connexion à la base de données pour l'insertion
+        $connectionInsert = connectToDatabase($serverName, $username, $pwd, $dbName);
+
+        // Préparer la déclaration SQL pour l'insertion
+        $stmt = prepareStatement($connectionInsert, "INSERT INTO address (street, street_nb, type, city, zipcode) VALUES (?, ?, ?, ?, ?)");
+
+        // Lie les paramètres à la déclaration SQL
+        bindParameters($stmt, "sisss", $street, $street_nb, $type, $city, $zipcode);
+
+        // Boucle pour insérer les données dans la base de données
+        for ($i = 1; $i <= $addressCount; $i++) {
+            if (isset($_POST["street_$i"])) {
+                $street = $_POST["street_$i"];
+                $street_nb = $_POST["street_nb_$i"];
+                $type = $_POST["type_$i"];
+                $city = $_POST["city_$i"];
+                $zipcode = $_POST["zipcode_$i"];
+
+                // Exécuter la déclaration SQL
+                executeStatement($stmt);
+            }
+        }
+
+        // Fermer la déclaration SQL
+        closeStatement($stmt);
+
+        // Fermer la connexion à la base de données
+        closeConnection($connectionInsert);
+    } else {
+        echo "<p>Erreur : Les données du formulaire ne sont pas correctement définies.</p>";
     }
     ?>
 </body>
