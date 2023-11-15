@@ -19,10 +19,10 @@
         $pwd = "";
         $dbName = "ecom1_tp2";
 
-        $connexion = connectToDatabase($serverName, $username, $pwd, $dbName);
+        $connection = connectToDatabase($serverName, $username, $pwd, $dbName);
 
         // Sélectionnez les adresses à partir de la base de données
-        $stmtSelect = $connexion->prepare("SELECT * FROM addresses");
+        $stmtSelect = $connection->prepare("SELECT * FROM address");
         $stmtSelect->execute();
         $result = $stmtSelect->get_result();
 
@@ -44,7 +44,7 @@
         echo "</div>";
 
         // Ferme la connexion à la base de données
-        closeConnection($connexion);
+        closeConnection($connection);
     }
     ?>
 </body>

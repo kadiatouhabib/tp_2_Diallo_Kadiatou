@@ -25,12 +25,12 @@ $pwd = "";
 $BaseDonnees_name = "ecom1_tp2";
 
 // Établit la connexion à la base de données
-$connexion = connectToDatabase($server_name, $user_name, $pwd, $BaseDonnees_name);
+$connection = connectToDatabase($server_name, $user_name, $pwd, $BaseDonnees_name);
 
 // Vérifie si la requête est de type POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Prépare la déclaration SQL pour l'insertion
-    $stmt = prepareStatement($connexion, "INSERT INTO address (street, street_nb, type, city, zipcode) VALUES (?, ?, ?, ?, ?)");
+    $stmt = prepareStatement($connection, "INSERT INTO address (street, street_nb, type, city, zipcode) VALUES (?, ?, ?, ?, ?)");
 
     // Initialise les variables pour les champs d'adresse
     $street = "";
@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Ferme la connexion à la base de données
-closeConnection($connexion);
+closeConnection($connection);
 
 // Vérifie à nouveau si la requête est de type POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
