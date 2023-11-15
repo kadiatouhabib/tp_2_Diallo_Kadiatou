@@ -1,0 +1,57 @@
+/* style_form1.css */
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background-color: #f087ec; /* Rouge */
+  color: #fff; /* Blanc */
+}
+
+.container {
+  background-color: #c99cc9; /* Bleu */
+  padding: 20px;
+  border-radius: 10px;
+}
+
+h2 {
+  color: #fff; /* Blanc */
+}
+
+.address-form {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #fff; /* Blanc */
+}
+
+input[type="text"], input[type="number"], select {
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+select {
+  background-color: #cb3eb8; /* Vert */
+  color: #fff; /* Blanc */
+}
+
+input[type="submit"] {
+  background-color: #6d3ecb; /* Rouge */
+  color: #fff; /* Blanc */
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #6d3ecb; /* Rouge foncé */
+}
+
+a {
+  color: #fff; /* Blanc */
+}
+
+a:hover {
+  color: #3498db; /* Bleu clair */
+}
