@@ -19,10 +19,10 @@ require_once("functions.php");
 require_once("form_1.php");
 
 // Informations de connexion à la base de données
-$server_name = 'localhost';
-$user_name = "root";
+$serverName = 'localhost:3306';
+$username = "root";
 $pwd = "";
-$BaseDonnees_name = "ecom1_tp2";
+$dbName = "ecom1_tp2";
 
 // Établit la connexion à la base de données
 $connection = connectToDatabase($server_name, $user_name, $pwd, $BaseDonnees_name);
@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $zipcode = "";
 
     // Lie les paramètres à la déclaration SQL
-    bindParameters($stmt, "sisss", $street, $street_nb, $type, $city, $zipcode);
+    bindParameters($stmt, 'sisss', $street, $street_nb, $type, $city, $zipcode);
 
     // Boucle pour insérer les données dans la base de données
     for ($i = 1; $i <= $addressCount; $i++) {

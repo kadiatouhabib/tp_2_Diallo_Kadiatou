@@ -13,7 +13,7 @@
         <form action="form_1.php" method="post">
             <label for="addressCount">Saisir le nombre ici: </label>
             <input type="number" name="addressCount" required>
-            <input type="submit" values="Submit">
+            <input type="submit" value="Submit">
         </form>
     </div>
 </body>

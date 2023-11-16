@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
         // Ajout d'un champ caché pour stocker le nombre d'adresses
-        echo "<input type='hidden' name='nombre_Adresse' value='$addressCount'><br>";
+        echo "<input type='hidden' name='addressCount' value='$addressCount'><br>";
         echo "<br>";
 
         // Bouton de soumission du formulaire

@@ -24,7 +24,7 @@
         $addressCount = $_POST["addressCount"];
 
         // Connexion à la base de données
-        $serverName = 'localhost';
+        $serverName = 'localhost:3306';
         $username = "root";
         $pwd = "";
         $dbName = "ecom1_tp2";
@@ -59,8 +59,7 @@
 
         echo "</div>";
 
-        // Fermer la connexion à la base de données
-        closeConnection($connection);
+       
 
         // Connexion à la base de données pour l'insertion
         $connectionInsert = connectToDatabase($serverName, $username, $pwd, $dbName);
@@ -69,7 +68,7 @@
         $stmt = prepareStatement($connectionInsert, "INSERT INTO address (street, street_nb, type, city, zipcode) VALUES (?, ?, ?, ?, ?)");
 
         // Lie les paramètres à la déclaration SQL
-        bindParameters($stmt, "sisss", $street, $street_nb, $type, $city, $zipcode);
+        bindParameters($stmt, 'sisss', $street, $street_nb, $type, $city, $zipcode);
 
         // Boucle pour insérer les données dans la base de données
         for ($i = 1; $i <= $addressCount; $i++) {
