@@ -14,35 +14,36 @@
 
 <?php
 
-// Inclut les fichiers de fonctions nécessaires
+// Inclut les fichiers de fonctions 
 require_once("functions.php");
 require_once("form_1.php");
 
-// Informations de connexion à la base de données
+// infos de connexion à la db
 $serverName = 'localhost:3306';
 $username = "root";
 $pwd = "";
 $dbName = "ecom1_tp2";
 
-// Établit la connexion à la base de données
+//  connexion à la db
 $connection = connectToDatabase($server_name, $user_name, $pwd, $BaseDonnees_name);
 
 // Vérifie si la requête est de type POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     // Prépare la déclaration SQL pour l'insertion
     $stmt = prepareStatement($connection, "INSERT INTO address (street, street_nb, type, city, zipcode) VALUES (?, ?, ?, ?, ?)");
 
-    // Initialise les variables pour les champs d'adresse
+    // Initialisation des variables pour les champs 
     $street = "";
     $street_nb = 0;
     $type = "";
     $city = "";
     $zipcode = "";
 
-    // Lie les paramètres à la déclaration SQL
+    // Liaison des paramètres à la déclaration SQL
     bindParameters($stmt, 'sisss', $street, $street_nb, $type, $city, $zipcode);
 
-    // Boucle pour insérer les données dans la base de données
+    // insertion des donnees dans la db
     for ($i = 1; $i <= $addressCount; $i++) {
         if (isset($_POST["street_$i"])) {
             $street = $_POST["street_$i"];
@@ -51,20 +52,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $city = $_POST["city_$i"];
             $zipcode = $_POST["zipcode_$i"];
 
-            // Exécute la déclaration SQL
+            // Exécution la déclaration SQL
             executeStatement($stmt);
         }
     }
 
-    // Ferme la déclaration SQL
+    // Fermeture de la déclaration SQL
     closeStatement($stmt);
 }
 
-// Ferme la connexion à la base de données
+// Fermeture de la connexion à la db
 closeConnection($connection);
 
 // Vérifie à nouveau si la requête est de type POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
     // Affiche les résultats dans une div avec la classe 'container'
     echo "<div class='container'>";
 

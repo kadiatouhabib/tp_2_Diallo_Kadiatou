@@ -11,11 +11,7 @@
     <a href="index.php">Accueil</a><br>
 
     <?php
-    // Configurer l'affichage des erreurs
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
-
+   
     require_once("functions.php");
    
 
@@ -33,7 +29,7 @@
 
         echo "<div class='container'>";
 
-        // Boucle pour afficher chaque adresse saisie
+        // affichage chaque adresse saisie
         for ($i = 1; $i <= $addressCount; $i++) {
             echo "<div class='adresse-result'>";
             echo "<h2>Adresse $i</h2>";
@@ -46,7 +42,7 @@
                 $city = $_POST["city_$i"];
                 $zipcode = $_POST["zipcode_$i"];
 
-                // Afficher les données
+                // Afficher les données saisies
                 echo "<p><strong> Street: </strong> " . htmlspecialchars($street) . "</p>";
                 echo "<p><strong> Street_nb: </strong> " . htmlspecialchars($street_nb) . "</p>";
                 echo "<p><strong> Type: </strong> " . htmlspecialchars($type) . "</p>";
@@ -61,16 +57,16 @@
 
        
 
-        // Connexion à la base de données pour l'insertion
+        // Connexion à la db pour l'insertion
         $connectionInsert = connectToDatabase($serverName, $username, $pwd, $dbName);
 
-        // Préparer la déclaration SQL pour l'insertion
+        // Préparation la déclaration SQL pour inserer les champs
         $stmt = prepareStatement($connectionInsert, "INSERT INTO address (street, street_nb, type, city, zipcode) VALUES (?, ?, ?, ?, ?)");
 
-        // Lie les paramètres à la déclaration SQL
+        // Liaison des paramètres à la déclaration SQL
         bindParameters($stmt, 'sisss', $street, $street_nb, $type, $city, $zipcode);
 
-        // Boucle pour insérer les données dans la base de données
+        // insertion des données dans la base de données
         for ($i = 1; $i <= $addressCount; $i++) {
             if (isset($_POST["street_$i"])) {
                 $street = $_POST["street_$i"];
@@ -84,10 +80,10 @@
             }
         }
 
-        // Fermer la déclaration SQL
+        // Fermeture de la déclaration SQL
         closeStatement($stmt);
 
-        // Fermer la connexion à la base de données
+        // Fermeture la connexion à la db
         closeConnection($connectionInsert);
     } else {
         echo "<p>Erreur : Les données du formulaire ne sont pas correctement définies.</p>";

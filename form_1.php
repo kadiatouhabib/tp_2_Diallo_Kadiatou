@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Récupère le nombre d'adresses saisi
     $addressCount = isset($_POST["addressCount"]) ? intval($_POST["addressCount"]) : 0;
 
-    // Vérifie si le nombre d'adresses est valide
+    // Vérifie si le nombre saisi est valide
     if ($addressCount <= 0) {
         echo "<p>Saisissez un nombre valide.</p>";
     } else {
@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         echo "<h2>Veuillez remplir tous les champs </h2>";
         echo "<form action='result.php' method='post'>";
 
-        // Boucle pour afficher les champs d'adresse en fonction du nombre saisi
+        // affichage des champs d'adresse en fonction du nombre saisi
         for ($i = 1; $i <= $addressCount; $i++) {
             echo "<div class='address-form'>";
             echo "<h2> Adresse $i</h2>";
